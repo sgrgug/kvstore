@@ -6,6 +6,7 @@ import (
 
 	pb "github.com/sgrgug/kvstore/proto"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 )
 
 const (
@@ -13,7 +14,8 @@ const (
 )
 
 func main() {
-	conn, err := grpc.Dial(address, grpc.WithInsecure(), grpc.WithBlock())
+	// conn, err := grpc.Dial(address, grpc.WithInsecure(), grpc.WithBlock())
+	conn, err := grpc.NewClient(address, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		log.Fatalf("Did not connect %v", err)
 	}
